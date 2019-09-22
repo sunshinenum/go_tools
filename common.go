@@ -1,4 +1,4 @@
-package main
+package tools
 
 import (
 	"os"
@@ -9,7 +9,7 @@ import (
 )
 
 // rankByWordCount
-func rankByWordCount(wordFrequencies map[string]int) PairList{
+func RankByWordCount(wordFrequencies map[string]int) PairList{
   pl := make(PairList, len(wordFrequencies))
   i := 0
   for k, v := range wordFrequencies {
@@ -33,7 +33,7 @@ func (p PairList) Swap(i, j int){ p[i], p[j] = p[j], p[i] }
 
 
 // read file to slice
-func loadFileToSlice(filePath string) []string {
+func LoadFileToSlice(filePath string) []string {
 	ip, _ := os.Open(filePath)
 	defer ip.Close()
 	scanner := bufio.NewScanner(ip)
@@ -50,7 +50,7 @@ func loadFileToSlice(filePath string) []string {
 }
 
 // dump file from slice
-func dumpFileFromSlice(filePath string, data []string) {
+func DumpFileFromSlice(filePath string, data []string) {
 	op, _ := os.Create(filePath)
 	defer op.Close()
 	for _, s := range data {
@@ -59,7 +59,7 @@ func dumpFileFromSlice(filePath string, data []string) {
 }
 
 // read file to 2d slice
-func loadFileTo2DSlice(filePath string, sep string) [][]string {
+func LoadFileTo2DSlice(filePath string, sep string) [][]string {
 	ip, _ := os.Open(filePath)
 	defer ip.Close()
 	scanner := bufio.NewScanner(ip)
@@ -77,17 +77,17 @@ func loadFileTo2DSlice(filePath string, sep string) [][]string {
 }
 
 // dump file from 2d slice
-func dumpFileFrom2DSlice(filePath string, data [][]string, sep string) {
+func DumpFileFrom2DSlice(filePath string, data [][]string, sep string) {
 	op, _ := os.Create(filePath)
 	defer op.Close()
 	line := ""
 	for _, secs := range data {
-		line = joinString(secs, sep)
+		line = JoinString(secs, sep)
 		op.WriteString(line + "\n")
 	}
 }
 
-func joinString(secs []string, sep string) string {
+func JoinString(secs []string, sep string) string {
 	s := ""
 	for _, sec := range secs {
 		s += (sec + sep)
@@ -95,22 +95,22 @@ func joinString(secs []string, sep string) string {
 	return s[0:len(s)-1]
 }
 
-func main() {
-	// rankByWordCount
-	d := make(map[string]int)
-	d["a"] = 3
-	d["b"] = 5
-	d["c"] = 2
-	l := rankByWordCount(d)
-	for i, v := range(l) {
-		fmt.Println(i, v.Key, v.Value)
-	}
-	// loadFileToSlice
-	l1 := loadFileToSlice("a")
-	fmt.Println(l1)
-	l2 := loadFileTo2DSlice("a", "\t")
-	fmt.Println(l2)
-	dumpFileFromSlice("b", l1)
-	fmt.Println(joinString(l2[0], " "))
-	dumpFileFrom2DSlice("c", l2, " ")
-}
+// func main() {
+// 	// rankByWordCount
+// 	d := make(map[string]int)
+// 	d["a"] = 3
+// 	d["b"] = 5
+// 	d["c"] = 2
+// 	l := RankByWordCount(d)
+// 	for i, v := range(l) {
+// 		fmt.Println(i, v.Key, v.Value)
+// 	}
+// 	// loadFileToSlice
+// 	l1 := LoadFileToSlice("a")
+// 	fmt.Println(l1)
+// 	l2 := LoadFileTo2DSlice("a", "\t")
+// 	fmt.Println(l2)
+// 	DumpFileFromSlice("b", l1)
+// 	fmt.Println(JoinString(l2[0], " "))
+// 	DumpFileFrom2DSlice("c", l2, " ")
+// }
