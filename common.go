@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"sort"
 	"bufio"
+    "math/rand"
 	"strings"
 )
 
@@ -93,6 +94,25 @@ func JoinString(secs []string, sep string) string {
 		s += (sec + sep)
 	}
 	return s[0:len(s)-1]
+}
+
+func New2DSliceF64(a int, b int) [][]float64 {
+    ret := make([][]float64, a)
+    for i:=0; i<a; i++ {
+        ret[i] = make([]float64, b)
+    }
+    return ret
+}
+
+func New2DSliceF64Rnd(a int, b int) [][]float64 {
+    ret := make([][]float64, a)
+    for i:=0; i<a; i++ {
+        ret[i] = append([]float64, b)
+        for j := range ret[i] {
+            ret[i][j] = -0.25 + rand.Float64()*0.5
+        }
+    }
+    return ret
 }
 
 // func main() {
