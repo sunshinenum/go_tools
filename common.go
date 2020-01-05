@@ -86,6 +86,18 @@ func DumpFileFrom2DSlice(filePath string, data [][]string, sep string) {
     }
 }
 
+// dump file from 2d slice (f32)
+func DumpFileFrom2DSliceF32(filePath string, data [][]float32, sep string) {
+    op, _ := os.Create(filePath)
+    defer op.Close()
+    line := ""
+    for _, secs := range data {
+        line = JoinF32(secs, sep)
+        op.WriteString(line + "\n")
+    }
+}
+
+
 // sep.join(secs)
 func JoinString(secs []string, sep string) string {
     s := ""
@@ -95,6 +107,16 @@ func JoinString(secs []string, sep string) string {
     return s[0:len(s)-len(sep)]
 }
 
+// sep.join(secs) F32
+func JoinF32(secs []float32, sep string) string {
+    s := ""
+    flt_str := ""
+    for _, sec := range secs {
+        flt_str = fmt.Sprintf("%.4f", sec)
+        s += (flt_str + sep)
+    }
+    return s[0:len(s)-len(sep)]
+}
 // new 2D float slice
 func New2DSliceF64(a int, b int) [][]float64 {
     ret := make([][]float64, a)
@@ -151,25 +173,27 @@ func New2DSliceI32(a int, b int) [][]int32 {
     return ret
 }
 
-// `func main() {
-// `    // rankByWordCount
-// `    d := make(map[string]int)
-// `    d["a"] = 3
-// `    d["b"] = 5
-// `    d["c"] = 2
-// `    l := RankByWordCount(d)
-// `    for i, v := range(l) {
-// `        fmt.Println(i, v.Key, v.Value)
-// `    }
-// `    // // loadFileToSlice
-// `    // l1 := LoadFileToSlice("a")
-// `    // fmt.Println(l1)
-// `    // l2 := LoadFileTo2DSlice("a", "\t")
-// `    // fmt.Println(l2)
-// `    // DumpFileFromSlice("b", l1)
-// `    // fmt.Println(JoinString(l2[0], " "))
-// `    // DumpFileFrom2DSlice("c", l2, " ")
-// `    // join str
-// `    secs := []string{"hello", "world"}
-// `    fmt.Println(JoinString(secs, "____"))
-// `}
+// func main() {
+//     // // rankByWordCount
+//     // d := make(map[string]int)
+//     // d["a"] = 3
+//     // d["b"] = 5
+//     // d["c"] = 2
+//     // l := RankByWordCount(d)
+//     // for i, v := range(l) {
+//     //     fmt.Println(i, v.Key, v.Value)
+//     // }
+//     // // loadFileToSlice
+//     // l1 := LoadFileToSlice("a")
+//     // fmt.Println(l1)
+//     // l2 := LoadFileTo2DSlice("a", "\t")
+//     // fmt.Println(l2)
+//     // DumpFileFromSlice("b", l1)
+//     // fmt.Println(JoinString(l2[0], " "))
+//     // DumpFileFrom2DSlice("c", l2, " ")
+//     // // join str
+//     // secs := []string{"hello", "world"}
+//     // fmt.Println(JoinString(secs, "____"))
+//     arr := [][]float32{{1.0, 2.0}, {3.0, 4.0}}
+//     DumpFileFrom2DSliceF32("arr", arr, "\t")
+// }
