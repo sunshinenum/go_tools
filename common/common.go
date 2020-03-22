@@ -11,8 +11,8 @@ import (
 
 // rankByWordCount {string: int}
 type Pair struct {
-  Key string
-  Value int
+    Key string
+    Value int
 }
 
 type PairList []Pair
@@ -21,14 +21,14 @@ func (p PairList) Less(i, j int) bool { return p[i].Value < p[j].Value }
 func (p PairList) Swap(i, j int){ p[i], p[j] = p[j], p[i] }
 
 func RankByWordCount(wordFrequencies map[string]int) PairList{
-  pl := make(PairList, len(wordFrequencies))
-  i := 0
-  for k, v := range wordFrequencies {
-    pl[i] = Pair{k, v}
-    i++
-  }
-  sort.Sort(sort.Reverse(pl))
-  return pl
+    pl := make(PairList, len(wordFrequencies))
+    i := 0
+    for k, v := range wordFrequencies {
+        pl[i] = Pair{k, v}
+        i++
+    }
+    sort.Sort(sort.Reverse(pl))
+    return pl
 }
 
 // read file to slice
@@ -75,7 +75,7 @@ func LoadFileTo2DSlice(filePath string, sep string) [][]string {
     return lines
 }
 
-// dump file from 2d slice
+// dump file from 2d slice (str)
 func DumpFileFrom2DSlice(filePath string, data [][]string, sep string) {
     op, _ := os.Create(filePath)
     defer op.Close()
@@ -97,7 +97,7 @@ func DumpFileFrom2DSliceF32(filePath string, data [][]float32, sep string) {
     }
 }
 
-// sep.join(secs)
+// sep.join(secs)  str
 func JoinString(secs []string, sep string) string {
     s := ""
     for _, sec := range secs {
@@ -116,6 +116,7 @@ func JoinF32(secs []float32, sep string) string {
     }
     return s[0:len(s)-len(sep)]
 }
+
 // new 2D float slice
 func New2DSliceF64(a int, b int) [][]float64 {
     ret := make([][]float64, a)
